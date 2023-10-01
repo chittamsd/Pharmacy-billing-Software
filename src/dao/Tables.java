@@ -42,6 +42,76 @@ public class Tables {
                     + ")");
 
             JOptionPane.showMessageDialog(null, "Supplier Table Created Successfully.");
+
+            //Purchase table 
+            stmt.executeUpdate("CREATE TABLE purchase ("
+                    + "purchase_pk INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "purchaseDate DATE,"
+                    + "invoiceNumber VARCHAR(200),"
+                    + "purchaseName VARCHAR(50),"
+                    +"purchasetype VARCHAR(50),"
+                    + "address VARCHAR(50),"
+                    + "ewayBillNo VARCHAR(200),"
+                    + "medicineName VARCHAR(200),"
+                    + "brandName VARCHAR(200),"
+                    + "UOM VARCHAR(200),"
+                    + "division VARCHAR(200),"
+                    + "mfg VARCHAR(200),"
+                    + "exp VARCHAR(200),"
+                    + "purchaseRate VARCHAR(200),"
+                    + "lendingRate VARCHAR(200),"
+                    + "localorOut VARCHAR(200),"
+                    + "MRP VARCHAR(200),"
+                    + "SalePrice VARCHAR(200),"
+                    + "Quantity VARCHAR(200),"
+                    + "TaxType VARCHAR(200),"
+                    + "Taxpercentage VARCHAR(200)"
+                    + ")");
+
+            JOptionPane.showMessageDialog(null, "Purchase Table Created Successfully.");
+            //Customer Card
+            
+             stmt.executeUpdate("CREATE TABLE customerCard ("
+                    + "card_pk INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "scanId VARCHAR(200),"
+                    + "name VARCHAR(200),"
+                    + "address varchar(200),"
+                    + "mobile VARCHAR(50),"
+                    + " email VARCHAR(50),"
+                    + "relationship VARCHAR(200),"
+                    + "discount varchar(200)" // This is the correct column name
+                    + ")");
+             JOptionPane.showMessageDialog(null, "Customer Card Table Created Successfully.");
+             
+             stmt.executeUpdate("CREATE TABLE Employee ("
+                     +"id INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "empId INT,"
+                    + "empName VARCHAR(255),"
+                    + "designation VARCHAR(255),"
+                    + "empType VARCHAR(255),"
+                    + "empSex VARCHAR(10),"
+                    + "empAccount VARCHAR(20),"
+                    + "empAddress VARCHAR(255),"
+                    + "mobile VARCHAR(15),"
+                    + "email VARCHAR(255),"
+                    + "accountno VARCHAR(20),"
+                    + "ifsc VARCHAR(20),"
+                    + "basicSalary DECIMAL(10, 2),"
+                    + "allowance DECIMAL(10, 2),"
+                    + "specialAllowance DECIMAL(10, 2),"
+                    + "hra DECIMAL(10, 2),"
+                    + "localConv DECIMAL(10, 2),"
+                    + "basketAllowance DECIMAL(10, 2),"
+                    + "additionalIns DECIMAL(10, 2),"
+                    + "pf DECIMAL(10, 2),"
+                    + "esi DECIMAL(10, 2),"
+                    + "grossSalary DECIMAL(10, 2),"
+                    + "perdaysalary DECIMAL(10, 2),"
+                    + "joindate DATE,"
+                    + "lastdate DATE"
+                    + ")");
+             JOptionPane.showMessageDialog(null, "Employee Table Created Successfully.");
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

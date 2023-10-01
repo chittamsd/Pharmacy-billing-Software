@@ -38,7 +38,6 @@ import java.util.function.Supplier;
 
 //import static org.apache.pdfbox.pdmodel.PDPage.PAGE_SIZE_A4;
 //import static org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode.OVERWRITE;
-
 /**
  *
  * @author mbish
@@ -361,10 +360,16 @@ public class AddSupplier extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Address is required");
         } else if (mobile.equals("")) {
             JOptionPane.showMessageDialog(null, "Mobile Number is required");
+        } else if (!mobile.contains(mobileNumberPattern)) {
+            JOptionPane.showMessageDialog(null, "Mobile Number is Invalid");
         } else if (altmobile.equals("")) {
             JOptionPane.showMessageDialog(null, "Alternate Mobile Number is required");
+        } else if (!altmobile.contains(mobileNumberPattern)) {
+            JOptionPane.showMessageDialog(null, "Alternate Mobile Number is invalid");
         } else if (email.equals("")) {
             JOptionPane.showMessageDialog(null, "Email is required");
+        } else if (!email.contains(emailPattern)) {
+            JOptionPane.showMessageDialog(null, "Email is invalid");
         } else if (conType.equals("Select")) {
             JOptionPane.showMessageDialog(null, "Please Select the Consumer Type");
         } else if (gstType.equals("Select")) {
@@ -375,33 +380,93 @@ public class AddSupplier extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ifsc Number is required");
         } else if (gstType.equals("Select")) {
             JOptionPane.showMessageDialog(null, "Please Select GST Type");
-        } else {
-            try {
-                Connection con = ConnectionProvider.getCon();
-                PreparedStatement ps = con.prepareStatement("INSERT INTO supplier (supplierName, supplierType, address, mobileNumber, altMobile, email, otherDetails, conType, gstType, gstNumber, tinNumber, bankAccountNo, ifsc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                ps.setString(1, supplierName);      // supplierName
-                ps.setString(2, supplierType);      // supplierType
-                ps.setString(3, address);           // address
-                ps.setString(4, mobile);            // mobileNumber
-                ps.setString(5, altmobile);         // altMobile
-                ps.setString(6, email);             // email
-                ps.setString(7, otherDetails);      // otherDetails
-                ps.setString(8, conType);          // conType
-                ps.setString(9, gstType);           // gstType
-                ps.setString(10, gstNumber);         // gstNumber
-                ps.setString(11, tinNumber);        // tinNumber
-                ps.setString(12, bankNumber);       // bankAccountNo
-                ps.setString(13, ifscNumber);       // ifsc
+            if (supplierName.equals("")) {
+                JOptionPane.showMessageDialog(null, "Supplier Name is required");
+            } else if (supplierType.equals("")) {
+                JOptionPane.showMessageDialog(null, "Supplier Type is required");
+            } else if (address.equals("")) {
+                JOptionPane.showMessageDialog(null, "Address is required");
+            } else if (mobile.equals("")) {
+                JOptionPane.showMessageDialog(null, "Mobile Number is required");
+            } else if (!mobile.contains(mobileNumberPattern)) {
+                JOptionPane.showMessageDialog(null, "Mobile Number is Invalid");
+            } else if (altmobile.equals("")) {
+                JOptionPane.showMessageDialog(null, "Alternate Mobile Number is required");
+            } else if (!altmobile.contains(mobileNumberPattern)) {
+                JOptionPane.showMessageDialog(null, "Alternate Mobile Number is invalid");
+            } else if (email.equals("")) {
+                JOptionPane.showMessageDialog(null, "Email is required");
+            } else if (!email.contains(emailPattern)) {
+                JOptionPane.showMessageDialog(null, "Email is invalid");
+            } else if (conType.equals("Select")) {
+                JOptionPane.showMessageDialog(null, "Please Select the Consumer Type");
+            } else if (gstType.equals("Select")) {
+                JOptionPane.showMessageDialog(null, "Please Select the GST Type");
+            } else if (bankNumber.equals("")) {
+                JOptionPane.showMessageDialog(null, "Account Number is required");
+            } else if (ifscNumber.equals("")) {
+                JOptionPane.showMessageDialog(null, "ifsc Number is required");
+            } else if (gstType.equals("Select")) {
+                JOptionPane.showMessageDialog(null, "Please Select GST Type");
+                if (supplierName.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Supplier Name is required");
+                } else if (supplierType.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Supplier Type is required");
+                } else if (address.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Address is required");
+                } else if (mobile.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Mobile Number is required");
+                } else if (!mobile.matches(mobileNumberPattern)) {
+                    JOptionPane.showMessageDialog(null, "Mobile Number is Invalid");
+                } else if (mobile.length() != 10) {
+                    JOptionPane.showMessageDialog(null, "Mobile Number is Invalid");
+                } else if (altmobile.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Alternate Mobile Number is required");
+                } else if (!altmobile.matches(mobileNumberPattern)) {
+                    JOptionPane.showMessageDialog(null, "Alternate Mobile Number is invalid");
+                } else if (email.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Email is required");
+                } else if (!email.matches(emailPattern)) {
+                    JOptionPane.showMessageDialog(null, "Email is invalid");
+                } else if (conType.equals("Select")) {
+                    JOptionPane.showMessageDialog(null, "Please Select the Consumer Type");
+                } else if (gstType.equals("Select")) {
+                    JOptionPane.showMessageDialog(null, "Please Select the GST Type");
+                } else if (bankNumber.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Account Number is required");
+                } else if (ifscNumber.equals("")) {
+                    JOptionPane.showMessageDialog(null, "ifsc Number is required");
+                } else if (gstType.equals("Select")) {
+                    JOptionPane.showMessageDialog(null, "Please Select GST Type");
+                } else {
+                    try {
+                        Connection con = ConnectionProvider.getCon();
+                        PreparedStatement ps = con.prepareStatement("INSERT INTO supplier (supplierName, supplierType, address, mobileNumber, altMobile, email, otherDetails, conType, gstType, gstNumber, tinNumber, bankAccountNo, ifsc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        ps.setString(1, supplierName);      // supplierName
+                        ps.setString(2, supplierType);      // supplierType
+                        ps.setString(3, address);           // address
+                        ps.setString(4, mobile);            // mobileNumber
+                        ps.setString(5, altmobile);         // altMobile
+                        ps.setString(6, email);             // email
+                        ps.setString(7, otherDetails);      // otherDetails
+                        ps.setString(8, conType);          // conType
+                        ps.setString(9, gstType);           // gstType
+                        ps.setString(10, gstNumber);         // gstNumber
+                        ps.setString(11, tinNumber);        // tinNumber
+                        ps.setString(12, bankNumber);       // bankAccountNo
+                        ps.setString(13, ifscNumber);       // ifsc
 
-                ps.executeUpdate();
+                        ps.executeUpdate();
 
-                JOptionPane.showMessageDialog(null, "Supplier Added SuccessFully");
-                setVisible(true);
-                new AddSupplier().setVisible(true);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex);
+                        JOptionPane.showMessageDialog(null, "Supplier Added SuccessFully");
+                        setVisible(true);
+                        new AddSupplier().setVisible(true);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex);
+                    }
+
+                }
             }
-
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -495,8 +560,8 @@ public class AddSupplier extends javax.swing.JFrame {
                 String ifsc = rs.getString("ifsc");
 
                 if (gstNumber.isEmpty() || tinNumber.isEmpty()) {
-                    gstNumber = "null";
-                    tinNumber = "null";
+                    gstNumber = "--";
+                    tinNumber = "--";
                 }
                 model.addRow(new Object[]{
                     slno,

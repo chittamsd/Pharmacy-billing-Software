@@ -4,19 +4,30 @@
  */
 package pharmacy.management.system;
 
+import dao.ConnectionProvider;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+
 /**
  *
  * @author mbish
  */
 public class CoustomerCard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CoustomerCard
-     */
+    DefaultTableModel model;
+
     public CoustomerCard() {
+       
         initComponents();
     }
 
+    /**
+     * Creates new form CoustomerCard
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,29 +40,29 @@ public class CoustomerCard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        customerScanId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        customerName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        customerAddress = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        customerNumber = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        customerEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        customerRelation = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        SaveAction = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        customerDiscount = new javax.swing.JComboBox<>();
         jTextField7 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
@@ -67,27 +78,39 @@ public class CoustomerCard extends javax.swing.JFrame {
 
         jLabel2.setText("Customer Scan Id");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 340, -1));
+        getContentPane().add(customerScanId, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 340, -1));
 
         jLabel3.setText("Customer Name");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 340, -1));
+
+        customerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerNameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(customerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 340, -1));
 
         jLabel4.setText("Address");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 340, 74));
+        getContentPane().add(customerAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 340, 74));
 
         jLabel5.setText("Mobile Number");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 340, -1));
+        getContentPane().add(customerNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 340, -1));
 
-        jLabel6.setText("Emil Id");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, -1, -1));
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 340, -1));
+        jLabel6.setText("Email Id");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
+
+        customerEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerEmailActionPerformed(evt);
+            }
+        });
+        getContentPane().add(customerEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 340, -1));
 
         jLabel7.setText("Customer Relationship");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
-        getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 340, -1));
+        getContentPane().add(customerRelation, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 340, -1));
 
         jButton2.setText("Excel");
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, -1, -1));
@@ -103,21 +126,31 @@ public class CoustomerCard extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Sl no.", "Customer Id No.", "Customer Name", "Address", "Mobile Number", "Relationship"
+                "Slno", "Card Name", "Address", "Mobile", "Email", "Relationship", "Discount"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(586, 74, 740, -1));
 
-        jButton5.setText("Save");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
+        SaveAction.setText("Save");
+        SaveAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveActionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SaveAction, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
 
         jButton6.setText("Modify");
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 510, -1, -1));
@@ -131,19 +164,142 @@ public class CoustomerCard extends javax.swing.JFrame {
         jLabel9.setText("Discount (%)");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, 20));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "10", "15", "20", "25", "30", "35", "40", "45", "50" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 340, 70, -1));
+        customerDiscount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "10", "15", "20", "25", "30", "35", "40", "45", "50" }));
+        getContentPane().add(customerDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 340, 70, -1));
         getContentPane().add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 510, 50, -1));
 
         jLabel10.setText("Coustomer Name :");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 510, -1, -1));
+
+        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField8ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 510, 130, -1));
 
         jButton8.setText("Search");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 510, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SaveActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionActionPerformed
+        String scanId = customerScanId.getText();
+        String name = customerName.getText();
+        String address = customerAddress.getText();
+        String mobileNumber = customerNumber.getText();
+        String email = customerEmail.getText();
+        String relationship = customerRelation.getText();
+        String discount = (String) customerDiscount.getSelectedItem();
+
+        if (scanId.isEmpty() || name.isEmpty() || address.isEmpty() || mobileNumber.isEmpty() || email.isEmpty() || relationship.isEmpty() || discount.isEmpty()) {
+            // Display an error message to the user
+            JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Return early if validation fails
+        }
+
+        try (Connection con = ConnectionProvider.getCon()) {
+            // Create an SQL INSERT statement
+            String insertQuery = "INSERT INTO customercard (scanId, name, address, mobile, email, relationship, discount) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            // Create a PreparedStatement to execute the SQL query
+            try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {
+                // Set parameter values for the PreparedStatement
+                preparedStatement.setString(1, scanId);
+                preparedStatement.setString(2, name);
+                preparedStatement.setString(3, address);
+                preparedStatement.setString(4, mobileNumber);
+                preparedStatement.setString(5, email);
+                preparedStatement.setString(6, relationship);
+                preparedStatement.setString(7, discount);
+
+                // Execute the query to insert the data
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    // Data was successfully saved
+                    JOptionPane.showMessageDialog(this, "Data saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    // Clear the input fields and reset discount to a default value
+                    clearInputFields();
+
+                    // Fetch and populate the table data
+                    fetchAndPopulateTableData(con);
+                } else {
+                    // Data could not be saved
+                    JOptionPane.showMessageDialog(this, "Data could not be saved.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (SQLException e) {
+            // Handle SQL exceptions
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error occurred while saving data.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Handle other exceptions
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occurred.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_SaveActionActionPerformed
+
+    private void customerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_customerNameActionPerformed
+
+    private void customerEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_customerEmailActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField8ActionPerformed
+
+    private void clearInputFields() {
+        customerScanId.setText("");
+        customerName.setText("");
+        customerAddress.setText("");
+        customerNumber.setText("");
+        customerEmail.setText("");
+        customerRelation.setText("");
+        // You can also reset the discount ComboBox to a default value if needed
+    }
+
+    private void fetchAndPopulateTableData(Connection con) throws SQLException {
+        String selectQuery = "SELECT * FROM customercard";
+        PreparedStatement selectStatement = con.prepareStatement(selectQuery);
+        ResultSet resultSet = selectStatement.executeQuery();
+
+        // Clear the existing table data
+        model.setRowCount(0);
+
+        // Populate the table with fetched data
+        while (resultSet.next()) {
+            String slNo = resultSet.getString("sl_no");
+            String customerId = resultSet.getString("scanId");
+            String customerName = resultSet.getString("name");
+            String customerAddress = resultSet.getString("address");
+            String mobile = resultSet.getString("mobile");
+            String relationship = resultSet.getString("relationship");
+
+            // Add the data to the table model
+            model.addRow(new Object[]{slNo, customerId, customerName, customerAddress, mobile, relationship});
+        }
+
+        // Close ResultSet and PreparedStatement
+        resultSet.close();
+        selectStatement.close();
+    }
 
     /**
      * @param args the command line arguments
@@ -181,15 +337,21 @@ public class CoustomerCard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SaveAction;
+    private javax.swing.JTextField customerAddress;
+    private javax.swing.JComboBox<String> customerDiscount;
+    private javax.swing.JTextField customerEmail;
+    private javax.swing.JTextField customerName;
+    private javax.swing.JTextField customerNumber;
+    private javax.swing.JTextField customerRelation;
+    private javax.swing.JTextField customerScanId;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -203,12 +365,6 @@ public class CoustomerCard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables

@@ -42,12 +42,12 @@ public class BankBook extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
+        SaveButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TableData = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -110,9 +110,14 @@ public class BankBook extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 190, 90));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/save.png"))); // NOI18N
-        jButton2.setText("Save");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, -1, -1));
+        SaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/save.png"))); // NOI18N
+        SaveButton.setText("Save");
+        SaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, -1, -1));
 
         jLabel9.setText("Supplier Name");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 80, 30));
@@ -128,7 +133,7 @@ public class BankBook extends javax.swing.JFrame {
         });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 10, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -139,7 +144,7 @@ public class BankBook extends javax.swing.JFrame {
                 "Sl No.", "Date", "Payment Type", "Ref. No.", "Bank Name", "Supplier Name", "Narration", "Payment", "Other Info."
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(TableData);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 97, 850, 440));
 
@@ -197,6 +202,10 @@ public class BankBook extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SaveButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -233,8 +242,9 @@ public class BankBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SaveButton;
+    private javax.swing.JTable TableData;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -261,7 +271,6 @@ public class BankBook extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
